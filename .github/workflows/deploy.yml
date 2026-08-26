@@ -1,0 +1,50 @@
+name: Deploy signup app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Insert the Airtable token
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+        run: |
+          if [ -z "$AIRTABLE_TOKEN" ]; then
+            echo "::warning::No AIRTABLE_TOKEN secret set. The app will ask for a token in the browser instead of saving signups automatically."
+          else
+            sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
+            echo "Token inserted into index.html for this deploy."
+          fi
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

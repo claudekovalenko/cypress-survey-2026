@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Sign up for Discovery Bible Study.">
+<meta name="theme-color" content="#1C2242">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bible Study">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAASFBMVEX9/PT59Ov49Oz49Ov59Of39Ov38ujx697z4sTp4tXp4tTp4tPn4tXl3c7YqmRwb3sgJkQeIkQcIkMcIkIcIkEbIkENEzIAAAGUVq+/AAAG20lEQVR42u3daZebIBQGYOKMUkOIG9D//08LgjvgdpN6z5FvPZM2T965shgq5G+0Kd3qum6+1vSbmfeMq0gULGVVVc2Xm35LKaNwEibXLViIb6PNO+q3rsPsAFrpiP+DdyLXgasdaCVLTW7+c9Ps0s8m/pRlc4km/Wkv0bqWhWgu0oTQtb2K1jE3lyG7IlmETRZm2VysyYV6ilZlLZrLNVGXKoxWZXPRNlWP0fKyZq2WfrQq5XXRcpw1wWGeqsn163lZ16Tv6+qro+u+5+vQF+yfPf31FK1K0Vy+ia5ACIaLcH4xWnQtGhRN1ANaCYkDLYXq0OpiE7volE91aCxBd1ETM+sXAgtaCLMmaNENotahK4nHLCuLFriSFgatRIOq6UuR4KoOWx8EwfRuMdkjCpnZ9B9ECWxJC42usF2IFVJ01aBrFWkQtht9o2/0jb7RN/pG3+gb/V/Qsm940LLsm0SCrkpZvl0rzSaMq6Mrna1UakCbLUUlNJyAghsNrsqC8w79LooSHk5AwdKAE0L+dOY/Gc25htegcAIJLnhKCPnJkgH94k9KLbwCgxNY8CPLsp9slHTOnoyxHg6T+Al07QObNkObNoc3p+DkfMKZBicanP645kHP4fIUnJxLOHMJ9+AIegRn5+AEGLyCDsDrj6E1uF4Fb0DP4WI3nBwDJyHwRvS5xAkweAf6OJwAlcRBtIPn++AEGHwA7YPXUThZB9M94IPoEZyvwwPow+ATaB98B7ruwcle8En0Al5vRpeqOAoGQA/w38K/8S6IpsfAQOgWzuledLZTmg6/Fj+a8b1+9lG0Brd9YhJB2x6NXQStxXqBRV76uiFpcD5Ni+LN6a+emG6HfwjtIs7Mha6U4vZvLdEs52aNrrskviPwT6CHiE2XqklvmqSBpHP+7l5VbA4cHD2N2I30SbA8dEn/stGLNwUOil5GzO3AmUYuRMa1my4CZ+wL6NQbMUnH41Con9bR7gocBj2KWNmIX3bkTH82rxG9gTNv4OfRgYiPrBG3Bn4Svazi16SK3Wti6EmYgcBnXcpJ9GrE+k8PQiIXIqO6CCYmb+A5HDpZi9jcYNJzSRK+w0Tf7YD45CuB50DojBQy1FG4iEmbl3w9goMLK63pNx64LCgDQr+XffEk4u43zEkaHMatydwKjgWuil8OUx4PuhKx1bwiI6JOc1IEwcB5zoBq+hGOWDhGavrr6IioTfnoIwYCz8EuxHQtYnMnfe2uqTY951fdMnAGP4yHIs6ybYOLLYJ44LDo9Yi3jIibAodBb4o4ukZkwcCFC5zNAz+H3hCx+VRJDJ0/Z8VrA+ezwMFqOp1GnCwjtp+KRha2ebCbm1Y4ZVAjIo9H7GZ/ZRFG6/cvfbO5ReDvHGpELP52ERNvxNxNsGMLWzGePocDhxoRU510NOJh9heZ5XUvWwmcU6gRMRl9SeiLuCucWE371iu+wBnciLgW8aRwAgtbY3quBc4+tLB9DMvEPuLpXCq0sF2OKzQwrsChty4TYyPiNPCqjK3IQRa2qxFv/fJzY+An0XYQD1exm5qs1HRwXKn8K/LTvQd5vSMRm5W46RNjC1vP9NkXOBT6QTesxJPVW72rA3nbpcAtbNci1p/KfMX9iqwRpfkX/CvyceAF5VBzDxGKOLERu8IJrsbbha1YWSCawAUU+ueRRSOW/ezv4cpjuofJjoi/dPhwkcDHNz7OXoixiM0knrZTk9T2IePdYhpnb4hx5mZz8cBzwHt5oSoeT7BT96NUf5hhW57GUgu3RbAS+AfuTw8dRdf9UTf7swnrH73N7kH9UWwrVWM+1tPBzeTCfhkbCRwS7a3idvbXg3m3h61Wdk+vqofdQ3kH3xA4DDoY8RhcDjupuk29w8ayepL4hgo/vbANRjwBh3cJun2zE7g/cMCF7bKj2A72wW2pcL6scLiF7aSjePTgF9+7ZdfBmzF8FjjYrd5iEnHqEnZvs3c3YLfFuoe3gdsKLwEXtq+hLz4HjsFt4KALW7dqMSVxEhyCszZwsIVtmlEDJnDgJfxt4DmbfL91GO3uPH4AHIT3X94dQn8eHIcfQGfpYwb+7PMHlvD9e5i+CvbB6f7dYvTr4Dnc7B/agzb/j8mAq2+Dx/B2pSt3bdv8fsLexPdtkL3EQz/qfRtkr91u9I2+0Tf6Rt/oG32jb/SNvtEn0CgfPXc/mfBraJQPrkT5iFCMD2NF+dhbnA8YRvkoZ5wPzcb5eHKMD4JH+ch9nIcboDxGAueBHTiPRkF5CA3O435wHqyE8ggrnIeF4TyWDecBeDiPGsR5qCPO4zNxHlSK80hYpIfv4jzmGOmB0kiP7kZ6SPqVj6P/B09pPiynvug+AAAAAElFTkSuQmCC">
+<title>Discovery Bible Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F4F0E6; --surface:#FFFDF7; --surface-2:#EDE7D9;
+  --ink:#1C2242; --ink-2:#4A5175; --ink-3:#7B7F9B;
+  --rule:#D5CDBA; --rule-strong:#B9AF97;
+  --gold:#9A6A22; --gold-bright:#D2A044;
+  --indigo:#2E3A72; --indigo-press:#232B58; --on-indigo:#FFFDF7;
+  --good:#2C6A4E; --bad:#8E2F2A;
+  --cover:#1C2242; --cover-ink:#F4F0E6; --cover-ink-2:#A9AEC9;
+  --shadow:0 1px 2px rgba(28,34,66,.06),0 8px 24px -12px rgba(28,34,66,.22);
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11131D; --surface:#191C2A; --surface-2:#232739;
+    --ink:#ECE7DA; --ink-2:#B6B6C8; --ink-3:#8A8CA3;
+    --rule:#333850; --rule-strong:#4A5170;
+    --gold:#E3AC55; --gold-bright:#E3AC55;
+    --indigo:#5C6BC8; --indigo-press:#4C5AB0; --on-indigo:#FFFFFF;
+    --good:#6FBE96; --bad:#E0817A;
+    --cover:#171A28; --cover-ink:#F1ECDF; --cover-ink-2:#9EA2BC;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11131D; --surface:#191C2A; --surface-2:#232739;
+  --ink:#ECE7DA; --ink-2:#B6B6C8; --ink-3:#8A8CA3;
+  --rule:#333850; --rule-strong:#4A5170;
+  --gold:#E3AC55; --gold-bright:#E3AC55;
+  --indigo:#5C6BC8; --indigo-press:#4C5AB0; --on-indigo:#FFFFFF;
+  --good:#6FBE96; --bad:#E0817A;
+  --cover:#171A28; --cover-ink:#F1ECDF; --cover-ink-2:#9EA2BC;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:Karla,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px; line-height:1.5;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap{max-width:480px;margin:0 auto;padding:0 0 44px}
+
+/* ---------- cover ---------- */
+.cover{
+  background:var(--cover); color:var(--cover-ink);
+  padding:calc(34px + env(safe-area-inset-top)) 26px 30px;
+  text-align:center; position:relative; overflow:hidden;
+}
+.cover::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold-bright) 22%,var(--gold-bright) 78%,transparent);
+  opacity:.85;
+}
+.glow{
+  position:absolute; top:-190px; left:50%; width:460px; height:340px;
+  transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(226,166,74,.30),rgba(226,166,74,0));
+  pointer-events:none;
+}
+.eyebrow{
+  position:relative; margin:0 0 10px; font-size:12px; font-weight:700;
+  letter-spacing:.20em; text-transform:uppercase; color:var(--cover-ink-2);
+}
+.cover h1{
+  position:relative; margin:0; font-family:Fraunces,Georgia,serif;
+  font-variation-settings:"SOFT" 60,"WONK" 0,"opsz" 80;
+  font-weight:600; font-size:clamp(35px,10.5vw,46px); line-height:1.04;
+  letter-spacing:-.018em; text-wrap:balance;
+}
+.cover h1 em{font-style:normal;color:var(--gold-bright)}
+.cover p{
+  position:relative; margin:13px auto 0; max-width:26ch;
+  font-size:15.5px; color:var(--cover-ink-2);
+}
+
+/* ---------- sheet ---------- */
+.sheet{
+  background:var(--surface); border:1px solid var(--rule); border-radius:var(--r);
+  box-shadow:var(--shadow); margin:22px 16px 0; padding:22px 20px;
+}
+.step{display:flex;flex-direction:column;gap:16px}
+.step-head{display:flex;align-items:baseline;gap:10px}
+.step-num{
+  font-family:Fraunces,Georgia,serif; font-weight:700; font-size:15px;
+  color:var(--gold); font-variant-numeric:tabular-nums;
+}
+.step-head h2{
+  margin:0; font-family:Fraunces,Georgia,serif; font-variation-settings:"SOFT" 60,"opsz" 30;
+  font-weight:600; font-size:21px; letter-spacing:-.01em;
+}
+.hint{margin:-8px 0 0;font-size:14.5px;color:var(--ink-3)}
+
+/* ---------- slots ---------- */
+.slots{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;border:0}
+.slot{
+  display:flex; align-items:center; gap:14px; cursor:pointer;
+  padding:13px 15px; border:1.5px solid var(--rule); border-radius:12px;
+  background:var(--surface); transition:border-color .15s,background .15s,transform .08s;
+}
+.slot:active{transform:scale(.988)}
+.slot input{position:absolute;opacity:0;width:0;height:0}
+.box{
+  flex:none; width:25px; height:25px; border-radius:8px;
+  border:1.5px solid var(--rule-strong); background:transparent;
+  display:grid; place-items:center; transition:border-color .15s,background .15s;
+}
+.box svg{width:15px;height:15px;stroke:var(--on-indigo);stroke-width:2.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .22s ease}
+.slot-day{font-weight:700;font-size:17px;letter-spacing:-.005em;display:block}
+.slot-time{font-size:14.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+/* Wednesday — the main study */
+.slot--main{padding:17px 16px;border-width:2px;border-color:var(--rule-strong)}
+.slot--main .slot-day{font-size:20px}
+.slot--main .slot-time{font-size:15.5px}
+.pill{
+  display:inline-block;margin:0 0 4px;padding:3px 9px;border-radius:999px;
+  font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold-bright);background:transparent;
+}
+.also{
+  margin:8px 0 -2px;font-size:11px;font-weight:700;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.slot--alt{padding:11px 15px}
+.slot--alt .slot-day{font-size:16px}
+.slot--alt .slot-time{font-size:14px}
+.slot--alt .box{width:22px;height:22px;border-radius:7px}
+.slot--alt .box svg{width:13px;height:13px}
+
+/* secondary: name your own time */
+.aside{padding:18px 20px;background:transparent;border-style:dashed;box-shadow:none;gap:13px}
+.aside h3{
+  margin:0;font-family:Fraunces,Georgia,serif;font-variation-settings:"SOFT" 60,"opsz" 24;
+  font-weight:600;font-size:17px;letter-spacing:-.005em;color:var(--ink-2);
+}
+.aside .hint{margin:0;font-size:13.5px}
+.aside input{font-size:16.5px}
+
+.slot.on{border-color:var(--indigo);background:var(--surface-2)}
+.slot.on .box{background:var(--indigo);border-color:var(--indigo)}
+.slot.on .box svg{stroke-dashoffset:0}
+.slot:focus-within{outline:2.5px solid var(--gold-bright);outline-offset:2px}
+
+/* ---------- ruled fields ---------- */
+.field{display:flex;flex-direction:column;gap:2px}
+.field label{
+  font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+}
+.field .opt{letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--ink-3);opacity:.8}
+.field input{
+  font:inherit; font-size:18px; color:var(--ink); background:transparent;
+  border:0; border-bottom:2px solid var(--rule); border-radius:0;
+  padding:7px 2px 8px; width:100%; -webkit-appearance:none;
+  transition:border-color .15s;
+}
+.field input::placeholder{color:var(--ink-3);opacity:.55}
+.field input:focus{outline:0;border-bottom-color:var(--gold-bright)}
+.field.err input{border-bottom-color:var(--bad)}
+.msg{font-size:13.5px;color:var(--bad);font-weight:600}
+.msg:empty{display:none}
+.fields{display:flex;flex-direction:column;gap:20px}
+
+/* ---------- button ---------- */
+.go{
+  width:100%; margin-top:4px; padding:16px 20px; border:0; border-radius:12px;
+  background:var(--indigo); color:var(--on-indigo);
+  font:inherit; font-size:17.5px; font-weight:700; letter-spacing:.005em;
+  cursor:pointer; transition:background .15s,transform .08s;
+}
+.go:hover{background:var(--indigo-press)}
+.go:active{transform:scale(.99)}
+.go:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px}
+.go[disabled]{opacity:.6;cursor:default}
+.foot{
+  margin:16px 24px 0;text-align:center;font-size:13.5px;color:var(--ink-3);line-height:1.45;
+}
+.foot a{color:var(--gold)}
+
+/* ---------- done ---------- */
+.done{text-align:center;padding:34px 22px 30px;display:none}
+.done.on{display:block}
+.seal{
+  width:70px;height:70px;margin:0 auto 18px;border-radius:50%;
+  background:var(--surface-2);border:1.5px solid var(--good);display:grid;place-items:center;
+}
+.seal svg{width:34px;height:34px;stroke:var(--good);stroke-width:2.4;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30}
+.done.on .seal svg{animation:draw .45s .1s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h2{
+  margin:0 0 8px;font-family:Fraunces,Georgia,serif;font-variation-settings:"SOFT" 60,"opsz" 40;
+  font-weight:600;font-size:27px;letter-spacing:-.015em;
+}
+.done p{margin:0 auto;max-width:30ch;color:var(--ink-2);font-size:16px}
+.recap{
+  margin:20px auto 0;padding:14px 16px;max-width:300px;text-align:left;
+  background:var(--surface-2);border-radius:12px;font-size:15px;
+}
+.recap b{display:block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;margin-bottom:6px}
+.recap ul{margin:0;padding-left:18px}
+.recap li{font-variant-numeric:tabular-nums}
+.again{
+  margin-top:22px;background:none;border:0;font:inherit;font-weight:700;font-size:15.5px;
+  color:var(--gold);cursor:pointer;text-decoration:underline;text-underline-offset:4px;padding:8px;
+}
+.again:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px;border-radius:6px}
+
+/* ---------- notices ---------- */
+.note{
+  margin:14px 16px 0;padding:12px 15px;border-radius:12px;font-size:14.5px;
+  background:var(--surface-2);border:1px solid var(--rule);color:var(--ink-2);
+}
+.note.warn{border-color:var(--gold-bright)}
+.note b{color:var(--ink)}
+.setup{margin:22px 16px 0}
+.setup h2{margin:0 0 6px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px}
+.setup ol{margin:10px 0 16px;padding-left:20px;font-size:15px;color:var(--ink-2);line-height:1.55}
+.setup code{background:var(--surface-2);padding:2px 6px;border-radius:5px;font-size:13.5px}
+.banner{
+  margin:0;padding:11px 20px;text-align:center;font-size:13.5px;font-weight:600;
+  background:var(--surface-2);color:var(--ink-2);border-bottom:1px solid var(--rule);
+}
+.banner span{color:var(--gold)}
+.hidden{display:none !important}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="cover">
+    <div class="glow"></div>
+    <p class="eyebrow">Come join us for</p>
+    <h1>Discovery <em>Bible</em> Study</h1>
+    <p>Grow and learn together about following Jesus.</p>
+  </header>
+
+  <p class="banner hidden" id="preview-banner"><span>Design preview.</span> Signups typed here are not saved.</p>
+
+  <main id="form-view">
+    <section class="sheet step">
+      <div class="step-head"><span class="step-num">1</span><h2>Which times work for you?</h2></div>
+      <p class="hint">Wednesday is our main gathering. Pick as many as you like — each one runs 45 minutes.</p>
+      <fieldset class="slots" id="slots">
+        <label class="slot slot--main">
+          <input type="checkbox" value="Wed 1:00-1:45" checked>
+          <span class="box"><svg viewBox="0 0 24 24"><polyline points="4,12.5 9.5,18 20,6.5"></polyline></svg></span>
+          <span>
+            <span class="pill">Main study</span>
+            <span class="slot-day">Wednesday</span>
+            <span class="slot-time">1:00 – 1:45 pm</span>
+          </span>
+        </label>
+
+        <p class="also">Also meeting</p>
+
+        <label class="slot slot--alt">
+          <input type="checkbox" value="Tues 11:00-11:45">
+          <span class="box"><svg viewBox="0 0 24 24"><polyline points="4,12.5 9.5,18 20,6.5"></polyline></svg></span>
+          <span><span class="slot-day">Tuesday</span><span class="slot-time">11:00 – 11:45 am</span></span>
+        </label>
+        <label class="slot slot--alt">
+          <input type="checkbox" value="Fri 1:30-2:15">
+          <span class="box"><svg viewBox="0 0 24 24"><polyline points="4,12.5 9.5,18 20,6.5"></polyline></svg></span>
+          <span><span class="slot-day">Friday</span><span class="slot-time">1:30 – 2:15 pm</span></span>
+        </label>
+      </fieldset>
+      <p class="msg" id="slots-msg"></p>
+    </section>
+
+    <section class="sheet step aside">
+      <h3>None of those work?</h3>
+      <div class="field" id="f-other">
+        <label for="other">Tell us when you&rsquo;re free</label>
+        <input id="other" type="text" maxlength="120" placeholder="e.g. Thursday mornings, or after 3 on Mondays">
+      </div>
+      <p class="hint">If enough people want a time, we&rsquo;ll start one.</p>
+    </section>
+
+    <section class="sheet step">
+      <div class="step-head"><span class="step-num">2</span><h2>How can we reach you?</h2></div>
+      <div class="fields">
+        <div class="field" id="f-name">
+          <label for="name">Name</label>
+          <input id="name" type="text" autocomplete="name" enterkeyhint="next" placeholder="First and last">
+        </div>
+        <div class="field" id="f-phone">
+          <label for="phone">Phone number</label>
+          <input id="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="(555) 123-4567">
+        </div>
+        <div class="field" id="f-email">
+          <label for="email">Email <span class="opt">— optional</span></label>
+          <input id="email" type="email" inputmode="email" autocomplete="email" enterkeyhint="done" placeholder="you@example.com">
+        </div>
+      </div>
+      <p class="msg" id="form-msg"></p>
+      <button class="go" id="go" type="button">Save my spot</button>
+    </section>
+
+    <p class="foot">We&rsquo;ll text you the room and a reminder before the first meeting. Nothing else.</p>
+  </main>
+
+  <section class="done" id="done-view">
+    <div class="seal"><svg viewBox="0 0 24 24"><polyline points="4,12.5 9.5,18 20,6.5"></polyline></svg></div>
+    <h2 id="done-title">You&rsquo;re on the list</h2>
+    <p id="done-note">We&rsquo;ll text you before the first meeting. So glad you&rsquo;re coming.</p>
+    <div class="recap" id="recap"></div>
+    <button class="again" id="again" type="button">Sign up someone else</button>
+  </section>
+
+  <div class="note warn hidden" id="queued-note"></div>
+
+  <section class="sheet setup hidden" id="setup">
+    <h2>One-time setup</h2>
+    <p class="hint">Paste an Airtable personal access token so signups can save to the <b>Discovery Bible Study</b> base.</p>
+    <ol>
+      <li>Go to <code>airtable.com/create/tokens</code></li>
+      <li>Scope: <code>data.records:write</code></li>
+      <li>Access: the <b>Discovery Bible Study</b> base only</li>
+    </ol>
+    <div class="field" id="f-token">
+      <label for="token">Token</label>
+      <input id="token" type="password" placeholder="pat..." autocomplete="off">
+    </div>
+    <p class="msg" id="setup-msg"></p>
+    <button class="go" id="save-token" type="button" style="margin-top:16px">Save token</button>
+  </section>
+</div>
+
+<script>
+/* ============================================================
+   Airtable — Discovery Bible Study
+   Paste your token between the quotes on the next line.
+   ============================================================ */
+const AIRTABLE_TOKEN = "PASTE_YOUR_AIRTABLE_TOKEN_HERE";
+const PREVIEW = false;   // true = demo only, nothing is saved
+const BASE_ID  = "appDVJvWoLJwCu90K";
+const TABLE_ID = "tblKa89rk4FopQuJM";
+
+
+/* ---- offline support ---- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () { /* offline mode is a bonus */ });
+  });
+}
+
+/* ---- token ---- */
+const TOKEN_KEY = 'dbs.token';
+function getToken() {
+  if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return AIRTABLE_TOKEN;
+  try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; }
+}
+
+const $ = (id) => document.getElementById(id);
+const formView = $('form-view'), doneView = $('done-view'), setupView = $('setup');
+
+/* ---- setup screen when no token is configured ---- */
+if (PREVIEW) {
+  $('preview-banner').classList.remove('hidden');
+} else if (!getToken()) {
+  formView.classList.add('hidden');
+  setupView.classList.remove('hidden');
+}
+$('save-token').addEventListener('click', function () {
+  const v = $('token').value.trim();
+  if (!v) { $('setup-msg').textContent = 'Paste the token first.'; return; }
+  try { localStorage.setItem(TOKEN_KEY, v); } catch (e) {
+    $('setup-msg').textContent = 'This browser is blocking storage. Try a normal (non-private) window.'; return;
+  }
+  setupView.classList.add('hidden');
+  formView.classList.remove('hidden');
+  flushOutbox();
+});
+
+/* ---- slot selection state ---- */
+function syncSlots() {
+  document.querySelectorAll('#slots .slot').forEach(function (el) {
+    el.classList.toggle('on', el.querySelector('input').checked);
+  });
+}
+document.querySelectorAll('#slots input').forEach(function (i) {
+  i.addEventListener('change', syncSlots);
+});
+syncSlots();
+
+/* ---- phone formatting ---- */
+const phone = $('phone');
+phone.addEventListener('input', function () {
+  const d = phone.value.replace(/\D/g, '').slice(0, 11);
+  const n = d.length === 11 && d[0] === '1' ? d.slice(1) : d;
+  let out = n;
+  if (n.length > 6) out = '(' + n.slice(0, 3) + ') ' + n.slice(3, 6) + '-' + n.slice(6, 10);
+  else if (n.length > 3) out = '(' + n.slice(0, 3) + ') ' + n.slice(3);
+  else if (n.length > 0) out = '(' + n;
+  phone.value = out;
+});
+
+/* ---- validation helpers ---- */
+function clearErrors() {
+  ['f-name', 'f-phone', 'f-email'].forEach((id) => $(id).classList.remove('err'));
+  $('form-msg').textContent = ''; $('slots-msg').textContent = '';
+}
+function markError(fieldId, msgId, text) {
+  if (fieldId) $(fieldId).classList.add('err');
+  $(msgId).textContent = text;
+}
+
+/* ---- offline outbox ---- */
+const OUTBOX_KEY = 'dbs.outbox';
+function readOutbox() { try { return JSON.parse(localStorage.getItem(OUTBOX_KEY) || '[]'); } catch (e) { return []; } }
+function writeOutbox(a) { try { localStorage.setItem(OUTBOX_KEY, JSON.stringify(a)); } catch (e) {} }
+function showQueued() {
+  const n = readOutbox().length, el = $('queued-note');
+  if (!n) { el.classList.add('hidden'); return; }
+  el.classList.remove('hidden');
+  el.innerHTML = '<b>' + n + ' signup' + (n > 1 ? 's are' : ' is') + ' waiting to send.</b> ' +
+    'They were saved on this phone and will go through once you have signal.';
+}
+async function postRecord(fields) {
+  const res = await fetch('https://api.airtable.com/v0/' + BASE_ID + '/' + TABLE_ID, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ records: [{ fields: fields }], typecast: true })
+  });
+  if (!res.ok) {
+    let detail = '';
+    try { const j = await res.json(); detail = (j.error && (j.error.message || j.error.type)) || ''; } catch (e) {}
+    const err = new Error(detail || ('Airtable returned ' + res.status));
+    err.status = res.status;
+    throw err;
+  }
+  return res.json();
+}
+async function flushOutbox() {
+  if (PREVIEW || !getToken()) return;
+  const box = readOutbox();
+  if (!box.length) return;
+  const left = [];
+  for (const rec of box) {
+    try { await postRecord(rec); } catch (e) { left.push(rec); }
+  }
+  writeOutbox(left);
+  showQueued();
+}
+window.addEventListener('online', flushOutbox);
+flushOutbox();
+showQueued();
+
+/* ---- submit ---- */
+const go = $('go');
+go.addEventListener('click', async function () {
+  clearErrors();
+  const name = $('name').value.trim();
+  const tel = phone.value.trim();
+  const email = $('email').value.trim();
+  const times = Array.from(document.querySelectorAll('#slots input:checked')).map((i) => i.value);
+  const other = $('other').value.trim();
+
+  if (!times.length && !other) { markError(null, 'slots-msg', 'Pick a time, or tell us below when you’re free.'); $('slots').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!name) { markError('f-name', 'form-msg', 'We need a name.'); $('name').focus(); return; }
+  if (tel.replace(/\D/g, '').length < 10) { markError('f-phone', 'form-msg', 'That phone number looks short — 10 digits, please.'); phone.focus(); return; }
+  if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { markError('f-email', 'form-msg', 'Check the email address.'); $('email').focus(); return; }
+
+  const fields = {
+    'Name': name,
+    'Phone Number': tel,
+    'Times Available': times,
+    'Submitted': new Date().toISOString(),
+    'Status': 'New'
+  };
+  if (email) fields['Email'] = email;
+  if (other) fields['Other Time'] = other;
+
+  if (PREVIEW) { showDone(name, times, other, false); return; }
+
+  go.disabled = true; go.textContent = 'Saving…';
+  let queued = false;
+  try {
+    await postRecord(fields);
+  } catch (err) {
+    if (err.status === 401 || err.status === 403) {
+      go.disabled = false; go.textContent = 'Save my spot';
+      markError(null, 'form-msg', 'The app can’t reach the signup sheet — the Airtable token needs to be renewed.');
+      return;
+    }
+    const box = readOutbox(); box.push(fields); writeOutbox(box);
+    queued = true;
+  }
+
+  showDone(name, times, other, queued);
+});
+
+function showDone(name, times, other, queued) {
+  const first = name.split(' ')[0];
+  const label = { 'Tues 11:00-11:45': 'Tuesday, 11:00 – 11:45 am', 'Wed 1:00-1:45': 'Wednesday, 1:00 – 1:45 pm', 'Fri 1:30-2:15': 'Friday, 1:30 – 2:15 pm' };
+  $('done-title').textContent = queued ? 'Saved on this phone' : 'You’re on the list, ' + first;
+  $('done-note').textContent = queued
+    ? 'No signal right now, so we held onto it. It sends automatically once you’re back online — just keep this page.'
+    : (times.length
+        ? 'We’ll text you the room and a reminder before the first meeting.'
+        : 'We’ll text you if we can make that time work.');
+  const esc = (t) => t.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
+  let rows = times.map((t) => '<li>' + label[t] + '</li>').join('');
+  if (other) rows += '<li>You asked about: ' + esc(other) + '</li>';
+  $('recap').innerHTML = '<b>' + (times.length ? 'Times you picked' : 'What you told us') + '</b><ul>' + rows + '</ul>';
+  formView.classList.add('hidden');
+  doneView.classList.add('on');
+  showQueued();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('again').addEventListener('click', function () {
+  $('name').value = ''; phone.value = ''; $('email').value = ''; $('other').value = '';
+  document.querySelectorAll('#slots input').forEach((i) => { i.checked = i.value.indexOf('Wed') === 0; });
+  syncSlots();
+  clearErrors();
+  go.disabled = false; go.textContent = 'Save my spot';
+  doneView.classList.remove('on');
+  formView.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Discovery Bible Study",
+  "short_name": "Bible Study",
+  "description": "Sign up for Discovery Bible Study.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1C2242",
+  "theme_color": "#1C2242",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
