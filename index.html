@@ -546,6 +546,15 @@ go.addEventListener('click', async function () {
 
   go.disabled = true; go.textContent = 'Saving…';
   let queued = false;
+
+  /* The webhook automation needs no token, so try it first and treat a
+     delivered signup as saved. Fall back to the direct API call only if it
+     fails. */
+  if (await postWebhook(fields)) {
+    showDone(name, times, other, false);
+    return;
+  }
+
   try {
     await postRecord(fields);
   } catch (err) {
