@@ -1,4 +1,4 @@
-const CACHE = 'dbs-v1';
+const CACHE = 'dbs-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', (e) => {

@@ -22,14 +22,20 @@ jobs:
 
       - name: Insert the Airtable token
         env:
-          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN || vars.AIRTABLE_TOKEN }}
         run: |
           if [ -z "$AIRTABLE_TOKEN" ]; then
-            echo "::warning::No AIRTABLE_TOKEN secret set. The app will ask for a token in the browser instead of saving signups automatically."
-          else
-            sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
-            echo "Token inserted into index.html for this deploy."
+            echo "::error::AIRTABLE_TOKEN is empty, so every visitor would be asked to paste a token."
+            echo "::error::Add it as a *repository* secret: Settings -> Secrets and variables -> Actions -> Repository secrets."
+            echo "::error::An *environment* secret on github-pages will NOT work here - this build job is not scoped to that environment."
+            exit 1
           fi
+          sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
+          if grep -q PASTE_YOUR_AIRTABLE_TOKEN_HERE index.html; then
+            echo "::error::The placeholder is still in index.html after substitution."
+            exit 1
+          fi
+          echo "Token inserted; placeholder is gone."
 
       - uses: actions/configure-pages@v5
         with:
