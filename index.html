@@ -376,6 +376,9 @@ body{
    Paste your token between the quotes on the next line.
    ============================================================ */
 const AIRTABLE_TOKEN = "PASTE_YOUR_AIRTABLE_TOKEN_HERE";
+/* Tokenless backup channel: an Airtable "when webhook received" automation.
+   Anything POSTed here is received by the base without authentication. */
+const WEBHOOK_URL = "https://hooks.airtable.com/workflows/v1/genericWebhook/appDVJvWoLJwCu90K/wfl8XYEVQbwTECTzn/wtryJI0xpXh7Zn6XG";
 const PREVIEW = false;   // true = demo only, nothing is saved
 const BASE_ID  = "appDVJvWoLJwCu90K";
 const TABLE_ID = "tblKa89rk4FopQuJM";
@@ -495,6 +498,31 @@ async function postRecord(fields) {
   }
   return res.json();
 }
+function webhookPayload(fields) {
+  return {
+    name: fields['Name'] || '',
+    phone: fields['Phone Number'] || '',
+    email: fields['Email'] || '',
+    times: (fields['Times Available'] || []).join(', '),
+    other: fields['Other Time'] || '',
+    foundBy: fields['Found By'] || '',
+    submitted: fields['Submitted'] || ''
+  };
+}
+async function postWebhook(fields) {
+  const body = JSON.stringify(webhookPayload(fields));
+  try {
+    const r = await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body });
+    return r.ok;
+  } catch (e) {
+    // A CORS-blocked response still may not mean an undelivered request; resend
+    // fire-and-forget in the form browsers always allow.
+    try {
+      await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: body });
+      return true;
+    } catch (e2) { return false; }
+  }
+}
 async function flushOutbox() {
   if (PREVIEW || !getToken()) return;
   const box = readOutbox();
@@ -544,7 +572,10 @@ go.addEventListener('click', async function () {
   try {
     await postRecord(fields);
   } catch (err) {
-    if (err.status === 401 || err.status === 403) {
+    if (err.status && err.status >= 400 && err.status < 500 && err.status !== 429) {
+      // The request reached Airtable and was rejected — retrying cannot help.
+      // Send a copy through the tokenless webhook and report the rejection.
+      postWebhook(fields);
       go.disabled = false; go.textContent = 'Save my spot';
       markError(null, 'form-msg',
         'Airtable refused the signup (HTTP ' + err.status + '): ' + (err.message || 'no detail given') +
