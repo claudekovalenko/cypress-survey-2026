@@ -312,7 +312,11 @@ body{
         </div>
         <div class="field" id="f-email">
           <label for="email">Email <span class="opt">— optional</span></label>
-          <input id="email" type="email" inputmode="email" autocomplete="email" enterkeyhint="done" placeholder="you@example.com">
+          <input id="email" type="email" inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="you@example.com">
+        </div>
+        <div class="field" id="f-found">
+          <label for="found">Who invited you? <span class="opt">— optional</span></label>
+          <input id="found" type="text" maxlength="80" enterkeyhint="done" placeholder="Name of the person who told you">
         </div>
       </div>
       <p class="msg" id="form-msg"></p>
@@ -493,6 +497,7 @@ go.addEventListener('click', async function () {
   const email = $('email').value.trim();
   const times = Array.from(document.querySelectorAll('#slots input:checked')).map((i) => i.value);
   const other = $('other').value.trim();
+  const found = $('found').value.trim();
 
   if (!times.length && !other) { markError(null, 'slots-msg', 'Pick a time, or tell us below when you’re free.'); $('slots').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!name) { markError('f-name', 'form-msg', 'We need a name.'); $('name').focus(); return; }
@@ -508,6 +513,7 @@ go.addEventListener('click', async function () {
   };
   if (email) fields['Email'] = email;
   if (other) fields['Other Time'] = other;
+  if (found) fields['Found By'] = found;
 
   if (PREVIEW) { showDone(name, times, other, false); return; }
 
@@ -550,7 +556,7 @@ function showDone(name, times, other, queued) {
 }
 
 $('again').addEventListener('click', function () {
-  $('name').value = ''; phone.value = ''; $('email').value = ''; $('other').value = '';
+  $('name').value = ''; phone.value = ''; $('email').value = ''; $('other').value = ''; $('found').value = '';
   document.querySelectorAll('#slots input').forEach((i) => { i.checked = i.value.indexOf('Wed') === 0; });
   syncSlots();
   clearErrors();
