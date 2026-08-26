@@ -400,6 +400,11 @@ if ('serviceWorker' in navigator) {
 
 /* ---- token ---- */
 const TOKEN_KEY = 'dbs.token';
+/* A token baked in at deploy time supersedes anything pasted on this device;
+   drop the stored one so an old, bad paste can never be used again. */
+if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) {
+  try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+}
 function getToken() {
   if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return AIRTABLE_TOKEN;
   try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; }
