@@ -353,21 +353,7 @@ body{
 
   <div class="note warn hidden" id="queued-note"></div>
 
-  <section class="sheet setup hidden" id="setup">
-    <h2>One-time setup</h2>
-    <p class="hint">Paste an Airtable personal access token so signups can save to the <b>Discovery Bible Study</b> base.</p>
-    <ol>
-      <li>Go to <code>airtable.com/create/tokens</code></li>
-      <li>Scope: <code>data.records:write</code></li>
-      <li>Access: the <b>Discovery Bible Study</b> base only</li>
-    </ol>
-    <div class="field" id="f-token">
-      <label for="token">Token</label>
-      <input id="token" type="password" placeholder="pat..." autocomplete="off">
-    </div>
-    <p class="msg" id="setup-msg"></p>
-    <button class="go" id="save-token" type="button" style="margin-top:16px">Save token</button>
-  </section>
+  <!-- token setup screen removed -->
 </div>
 
 <script>
@@ -384,20 +370,21 @@ const BASE_ID  = "appDVJvWoLJwCu90K";
 const TABLE_ID = "tblKa89rk4FopQuJM";
 
 
-/* ---- offline support ---- */
+/* ---- remove the old offline worker ----
+   A worker registered by an earlier build survives deleting the home-screen
+   icon and kept serving that build's page. Tear down every registration and
+   cache; sw.js is now a self-destructing no-op kept only so already-registered
+   workers fetch it and remove themselves. */
 if ('serviceWorker' in navigator) {
-  // Reload once when a new worker takes over, so a device that cached an older
-  // build picks up the current page without a manual hard refresh.
-  var reloading = false;
-  navigator.serviceWorker.addEventListener('controllerchange', function () {
-    if (reloading) return;
-    reloading = true;
-    window.location.reload();
-  });
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').then(function (reg) {
-      reg.update();
-    }).catch(function () { /* offline mode is a bonus */ });
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      regs.forEach(function (reg) { reg.unregister(); });
+    }).catch(function () {});
+    if (window.caches && caches.keys) {
+      caches.keys().then(function (keys) {
+        keys.forEach(function (k) { caches.delete(k); });
+      }).catch(function () {});
+    }
   });
 }
 
@@ -419,25 +406,15 @@ function tokenSource() {
 }
 
 const $ = (id) => document.getElementById(id);
-const formView = $('form-view'), doneView = $('done-view'), setupView = $('setup');
+const formView = $('form-view'), doneView = $('done-view');
 
 /* ---- setup screen when no token is configured ---- */
 if (PREVIEW) {
   $('preview-banner').classList.remove('hidden');
-} else if (!getToken()) {
-  formView.classList.add('hidden');
-  setupView.classList.remove('hidden');
 }
-$('save-token').addEventListener('click', function () {
-  const v = $('token').value.trim();
-  if (!v) { $('setup-msg').textContent = 'Paste the token first.'; return; }
-  try { localStorage.setItem(TOKEN_KEY, v); } catch (e) {
-    $('setup-msg').textContent = 'This browser is blocking storage. Try a normal (non-private) window.'; return;
-  }
-  setupView.classList.add('hidden');
-  formView.classList.remove('hidden');
-  flushOutbox();
-});
+/* The setup screen is never shown: the token ships with the page, and a signup
+   that cannot use it falls through to the tokenless webhook instead. */
+
 
 /* ---- slot selection state ---- */
 function syncSlots() {
