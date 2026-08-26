@@ -30,6 +30,12 @@ jobs:
             echo "::error::An *environment* secret on github-pages will NOT work here - this build job is not scoped to that environment."
             exit 1
           fi
+          # A pasted secret often carries stray whitespace, which Airtable rejects as a bad token.
+          AIRTABLE_TOKEN="$(printf '%s' "$AIRTABLE_TOKEN" | tr -d '[:space:]')"
+          case "$AIRTABLE_TOKEN" in
+            pat*) ;;
+            *) echo "::error::AIRTABLE_TOKEN does not look like an Airtable personal access token (expected it to start with 'pat')."; exit 1 ;;
+          esac
           sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
           if grep -q PASTE_YOUR_AIRTABLE_TOKEN_HERE index.html; then
             echo "::error::The placeholder is still in index.html after substitution."

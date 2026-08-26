@@ -383,6 +383,11 @@ function getToken() {
   if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return AIRTABLE_TOKEN;
   try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; }
 }
+/* Which token is actually in play, so a rejection can be traced to its source. */
+function tokenSource() {
+  if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return 'deploy';
+  try { return localStorage.getItem(TOKEN_KEY) ? 'this device' : 'none'; } catch (e) { return 'none'; }
+}
 
 const $ = (id) => document.getElementById(id);
 const formView = $('form-view'), doneView = $('done-view'), setupView = $('setup');
@@ -513,7 +518,9 @@ go.addEventListener('click', async function () {
   } catch (err) {
     if (err.status === 401 || err.status === 403) {
       go.disabled = false; go.textContent = 'Save my spot';
-      markError(null, 'form-msg', 'The app can’t reach the signup sheet — the Airtable token needs to be renewed.');
+      markError(null, 'form-msg',
+        'Airtable refused the signup (HTTP ' + err.status + '): ' + (err.message || 'no detail given') +
+        ' — token from ' + tokenSource() + '.');
       return;
     }
     const box = readOutbox(); box.push(fields); writeOutbox(box);
