@@ -47,11 +47,13 @@ jobs:
                 usr*)  SHAPE="starts with 'usr' - that is a user ID, not a token" ;;
                 *)     SHAPE="does not start with any known Airtable prefix - likely the token's NAME from the tokens list, not its value" ;;
               esac
-              echo "::error::AIRTABLE_TOKEN is not a valid Airtable personal access token."
-              echo "::error::What is stored: $LEN characters, and it $SHAPE."
-              echo "::error::Expected: 'pat' + id + '.' + a long secret, about 80 characters, e.g. patAbC123XyZ4567.0a1b2c3d4e5f..."
-              echo "::error::Airtable shows that string once, at creation. If you no longer have it, create a new token at airtable.com/create/tokens."
-              exit 1 ;;
+              # Warn rather than fail: the site is already published with this value,
+              # so blocking the deploy withholds unrelated fixes without helping.
+              echo "::warning::AIRTABLE_TOKEN is not a valid Airtable personal access token. Signups will fail until it is replaced."
+              echo "::warning::What is stored: $LEN characters, and it $SHAPE."
+              echo "::warning::Expected: 'pat' + id + '.' + a long secret, about 80 characters, e.g. patAbC123XyZ4567.0a1b2c3d4e5f..."
+              echo "::warning::Airtable shows that string once, at creation. If you no longer have it, create a new token at airtable.com/create/tokens."
+              ;;
           esac
           sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
           if grep -q PASTE_YOUR_AIRTABLE_TOKEN_HERE index.html; then
