@@ -22,7 +22,7 @@ jobs:
 
       - name: Insert the Airtable token
         env:
-          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN || vars.AIRTABLE_TOKEN }}
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN_2 || secrets.AIRTABLE_TOKEN || vars.AIRTABLE_TOKEN }}
         run: |
           if [ -z "$AIRTABLE_TOKEN" ]; then
             echo "::error::AIRTABLE_TOKEN is empty, so every visitor would be asked to paste a token."
