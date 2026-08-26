@@ -60,6 +60,7 @@ jobs:
             echo "::error::The placeholder is still in index.html after substitution."
             exit 1
           fi
+          sed -i "s|BUILD_STAMP_HERE|$(date -u '+%H:%M')Z|" index.html
           echo "Token inserted; placeholder is gone."
 
       - uses: actions/configure-pages@v5

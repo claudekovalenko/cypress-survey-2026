@@ -341,6 +341,7 @@ body{
     </section>
 
     <p class="foot">We&rsquo;ll text you the room and a reminder before the first meeting. Nothing else.</p>
+    <p class="foot" id="build-info" style="opacity:.55;font-size:11.5px"></p>
   </main>
 
   <section class="done" id="done-view">
@@ -415,6 +416,18 @@ if (PREVIEW) {
 /* The setup screen is never shown: the token ships with the page, and a signup
    that cannot use it falls through to the tokenless webhook instead. */
 
+
+/* ---- build fingerprint ----
+   Shows what this page actually shipped with, so a screenshot answers whether
+   the token reached the browser rather than requiring a fetch of the page. */
+(function () {
+  const el = $('build-info');
+  if (!el) return;
+  const t = AIRTABLE_TOKEN || '';
+  const isPlaceholder = t.indexOf('PASTE_') === 0;
+  el.textContent = 'build BUILD_STAMP_HERE \u00b7 token ' +
+    (isPlaceholder ? 'MISSING (placeholder)' : t.slice(0, 3) + '\u2026 ' + t.length + ' chars');
+})();
 
 /* ---- slot selection state ---- */
 function syncSlots() {
