@@ -20,48 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Insert the Airtable token
-        env:
-          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN_2 || secrets.AIRTABLE_TOKEN || vars.AIRTABLE_TOKEN }}
+      - name: Stamp the build time
         run: |
-          if [ -z "$AIRTABLE_TOKEN" ]; then
-            echo "::error::AIRTABLE_TOKEN is empty, so every visitor would be asked to paste a token."
-            echo "::error::Add it as a *repository* secret: Settings -> Secrets and variables -> Actions -> Repository secrets."
-            echo "::error::An *environment* secret on github-pages will NOT work here - this build job is not scoped to that environment."
-            exit 1
-          fi
-          # A pasted secret often carries stray whitespace, which Airtable rejects as a bad token.
-          AIRTABLE_TOKEN="$(printf '%s' "$AIRTABLE_TOKEN" | tr -d '[:space:]')"
-          case "$AIRTABLE_TOKEN" in
-            pat*.*) ;;
-            *)
-              # Describe the value's shape without ever printing it, so the wrong
-              # paste can be identified from the log.
-              LEN=${#AIRTABLE_TOKEN}
-              case "$AIRTABLE_TOKEN" in
-                pat*)  SHAPE="starts with 'pat' but has no '.' - looks like only the first half was copied" ;;
-                key*)  SHAPE="starts with 'key' - that is a legacy Airtable API key, which Airtable retired" ;;
-                app*)  SHAPE="starts with 'app' - that is a base ID, not a token" ;;
-                tbl*)  SHAPE="starts with 'tbl' - that is a table ID, not a token" ;;
-                fld*)  SHAPE="starts with 'fld' - that is a field ID, not a token" ;;
-                usr*)  SHAPE="starts with 'usr' - that is a user ID, not a token" ;;
-                *)     SHAPE="does not start with any known Airtable prefix - likely the token's NAME from the tokens list, not its value" ;;
-              esac
-              # Warn rather than fail: the site is already published with this value,
-              # so blocking the deploy withholds unrelated fixes without helping.
-              echo "::warning::AIRTABLE_TOKEN is not a valid Airtable personal access token. Signups will fail until it is replaced."
-              echo "::warning::What is stored: $LEN characters, and it $SHAPE."
-              echo "::warning::Expected: 'pat' + id + '.' + a long secret, about 80 characters, e.g. patAbC123XyZ4567.0a1b2c3d4e5f..."
-              echo "::warning::Airtable shows that string once, at creation. If you no longer have it, create a new token at airtable.com/create/tokens."
-              ;;
-          esac
-          sed -i "s|PASTE_YOUR_AIRTABLE_TOKEN_HERE|$AIRTABLE_TOKEN|" index.html
-          if grep -q PASTE_YOUR_AIRTABLE_TOKEN_HERE index.html; then
-            echo "::error::The placeholder is still in index.html after substitution."
-            exit 1
-          fi
+          # Signups go to Supabase with a publishable key that is public by
+          # design, so the build injects no secret of any kind.
           sed -i "s|BUILD_STAMP_HERE|$(date -u '+%H:%M')Z|" index.html
-          echo "Token inserted; placeholder is gone."
+          echo "Build stamped."
 
       - uses: actions/configure-pages@v5
         with:

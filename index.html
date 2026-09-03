@@ -354,22 +354,19 @@ body{
 
   <div class="note warn hidden" id="queued-note"></div>
 
-  <!-- token setup screen removed -->
 </div>
 
 <script>
 /* ============================================================
-   Airtable — Discovery Bible Study
-   Paste your token between the quotes on the next line.
+   Supabase — Discovery Bible Study signups
+   The publishable key below is meant to be public. Row level security
+   allows anyone to add a signup and nobody to read one, so there is no
+   secret here and nothing to expire.
    ============================================================ */
-const AIRTABLE_TOKEN = "PASTE_YOUR_AIRTABLE_TOKEN_HERE";
-/* Tokenless backup channel: an Airtable "when webhook received" automation.
-   Anything POSTed here is received by the base without authentication. */
-const WEBHOOK_URL = "https://hooks.airtable.com/workflows/v1/genericWebhook/appDVJvWoLJwCu90K/wfl8XYEVQbwTECTzn/wtryJI0xpXh7Zn6XG";
+const SUPABASE_URL = "https://dmiysgmhwpkrunmswtrn.supabase.co";
+const SUPABASE_KEY = "sb_publishable_9NfxdWLrFdExD-_6HwPs8A_uUtlTH3C";
+const SIGNUPS_URL  = SUPABASE_URL + "/rest/v1/dbs_signups";
 const PREVIEW = false;   // true = demo only, nothing is saved
-const BASE_ID  = "appDVJvWoLJwCu90K";
-const TABLE_ID = "tblKa89rk4FopQuJM";
-
 
 /* ---- remove the old offline worker ----
    A worker registered by an earlier build survives deleting the home-screen
@@ -389,44 +386,20 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-/* ---- token ---- */
-const TOKEN_KEY = 'dbs.token';
-/* A token baked in at deploy time supersedes anything pasted on this device;
-   drop the stored one so an old, bad paste can never be used again. */
-if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) {
-  try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
-}
-function getToken() {
-  if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return AIRTABLE_TOKEN;
-  try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; }
-}
-/* Which token is actually in play, so a rejection can be traced to its source. */
-function tokenSource() {
-  if (AIRTABLE_TOKEN && AIRTABLE_TOKEN.indexOf('PASTE_') !== 0) return 'deploy';
-  try { return localStorage.getItem(TOKEN_KEY) ? 'this device' : 'none'; } catch (e) { return 'none'; }
-}
-
 const $ = (id) => document.getElementById(id);
 const formView = $('form-view'), doneView = $('done-view');
 
-/* ---- setup screen when no token is configured ---- */
 if (PREVIEW) {
   $('preview-banner').classList.remove('hidden');
 }
-/* The setup screen is never shown: the token ships with the page, and a signup
-   that cannot use it falls through to the tokenless webhook instead. */
 
 
 /* ---- build fingerprint ----
-   Shows what this page actually shipped with, so a screenshot answers whether
-   the token reached the browser rather than requiring a fetch of the page. */
+   Shows which build the browser is actually running, so a stale copy is
+   obvious from a screenshot. */
 (function () {
   const el = $('build-info');
-  if (!el) return;
-  const t = AIRTABLE_TOKEN || '';
-  const isPlaceholder = t.indexOf('PASTE_') === 0;
-  el.textContent = 'build BUILD_STAMP_HERE \u00b7 token ' +
-    (isPlaceholder ? 'MISSING (placeholder)' : t.slice(0, 3) + '\u2026 ' + t.length + ' chars');
+  if (el) el.textContent = 'build BUILD_STAMP_HERE';
 })();
 
 /* ---- slot selection state ---- */
@@ -473,48 +446,28 @@ function showQueued() {
   el.innerHTML = '<b>' + n + ' signup' + (n > 1 ? 's are' : ' is') + ' waiting to send.</b> ' +
     'They were saved on this phone and will go through once you have signal.';
 }
-async function postRecord(fields) {
-  const res = await fetch('https://api.airtable.com/v0/' + BASE_ID + '/' + TABLE_ID, {
+async function postRecord(row) {
+  const res = await fetch(SIGNUPS_URL, {
     method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ records: [{ fields: fields }], typecast: true })
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(row)
   });
   if (!res.ok) {
     let detail = '';
-    try { const j = await res.json(); detail = (j.error && (j.error.message || j.error.type)) || ''; } catch (e) {}
-    const err = new Error(detail || ('Airtable returned ' + res.status));
+    try { const j = await res.json(); detail = j.message || j.hint || ''; } catch (e) {}
+    const err = new Error(detail || ('Server returned ' + res.status));
     err.status = res.status;
     throw err;
   }
-  return res.json();
-}
-function webhookPayload(fields) {
-  return {
-    name: fields['Name'] || '',
-    phone: fields['Phone Number'] || '',
-    email: fields['Email'] || '',
-    times: (fields['Times Available'] || []).join(', '),
-    other: fields['Other Time'] || '',
-    foundBy: fields['Found By'] || '',
-    submitted: fields['Submitted'] || ''
-  };
-}
-async function postWebhook(fields) {
-  const body = JSON.stringify(webhookPayload(fields));
-  try {
-    const r = await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body });
-    return r.ok;
-  } catch (e) {
-    // A CORS-blocked response still may not mean an undelivered request; resend
-    // fire-and-forget in the form browsers always allow.
-    try {
-      await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: body });
-      return true;
-    } catch (e2) { return false; }
-  }
+  return true;
 }
 async function flushOutbox() {
-  if (PREVIEW || !getToken()) return;
+  if (PREVIEW) return;
   const box = readOutbox();
   if (!box.length) return;
   const left = [];
@@ -544,39 +497,32 @@ go.addEventListener('click', async function () {
   if (tel.replace(/\D/g, '').length < 10) { markError('f-phone', 'form-msg', 'That phone number looks short — 10 digits, please.'); phone.focus(); return; }
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { markError('f-email', 'form-msg', 'Check the email address.'); $('email').focus(); return; }
 
-  const fields = {
-    'Name': name,
-    'Phone Number': tel,
-    'Times Available': times,
-    'Submitted': new Date().toISOString(),
-    'Status': 'New'
+  const row = {
+    name: name,
+    phone: tel,
+    times: times,
+    submitted_at: new Date().toISOString()
   };
-  if (email) fields['Email'] = email;
-  if (other) fields['Other Time'] = other;
-  if (found) fields['Found By'] = found;
+  if (email) row.email = email;
+  if (other) row.other_time = other;
+  if (found) row.found_by = found;
 
   if (PREVIEW) { showDone(name, times, other, false); return; }
 
   go.disabled = true; go.textContent = 'Saving…';
   let queued = false;
 
-  /* The webhook is only a fallback: while its automation is switched off
-     Airtable accepts the POST and creates nothing, so a delivered webhook is
-     not proof a signup was saved. The API call is what actually writes. */
   try {
-    await postRecord(fields);
+    await postRecord(row);
   } catch (err) {
     if (err.status && err.status >= 400 && err.status < 500 && err.status !== 429) {
-      // The request reached Airtable and was rejected — retrying cannot help.
-      // Send a copy through the tokenless webhook and report the rejection.
-      postWebhook(fields);
+      // The request reached the server and was rejected, so retrying cannot help.
       go.disabled = false; go.textContent = 'Save my spot';
-      markError(null, 'form-msg',
-        'Airtable refused the signup (HTTP ' + err.status + '): ' + (err.message || 'no detail given') +
-        ' — token from ' + tokenSource() + '.');
+      markError(null, 'form-msg', 'The signup was refused (' + err.status + '): ' + (err.message || 'no detail given'));
       return;
     }
-    const box = readOutbox(); box.push(fields); writeOutbox(box);
+    // Network trouble or a server fault: hold it on this phone and retry later.
+    const box = readOutbox(); box.push(row); writeOutbox(box);
     queued = true;
   }
 
