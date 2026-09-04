@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1C2242">
+<title>Signups &middot; Discovery Bible Study</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F4F0E6; --surface:#FFFDF7; --surface-2:#EDE7D9;
+  --ink:#1C2242; --ink-2:#4A5175; --ink-3:#7B7F9B;
+  --rule:#D5CDBA; --rule-strong:#B9AF97;
+  --gold:#9A6A22; --gold-bright:#D2A044;
+  --indigo:#2E3A72; --indigo-press:#232B58; --on-indigo:#FFFDF7;
+  --bad:#8E2F2A;
+  --cover:#1C2242; --cover-ink:#F4F0E6; --cover-ink-2:#A9AEC9;
+  --shadow:0 1px 2px rgba(28,34,66,.06),0 8px 24px -12px rgba(28,34,66,.22);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11131D; --surface:#191C2A; --surface-2:#232739;
+    --ink:#ECE7DA; --ink-2:#B6B6C8; --ink-3:#8A8CA3;
+    --rule:#333850; --rule-strong:#4A5170;
+    --gold:#E3AC55; --gold-bright:#E3AC55;
+    --indigo:#5C6BC8; --indigo-press:#4C5AB0; --on-indigo:#FFFFFF;
+    --bad:#E0817A;
+    --cover:#171A28; --cover-ink:#F1ECDF; --cover-ink-2:#9EA2BC;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11131D; --surface:#191C2A; --surface-2:#232739;
+  --ink:#ECE7DA; --ink-2:#B6B6C8; --ink-3:#8A8CA3;
+  --rule:#333850; --rule-strong:#4A5170;
+  --gold:#E3AC55; --gold-bright:#E3AC55;
+  --indigo:#5C6BC8; --indigo-press:#4C5AB0; --on-indigo:#FFFFFF;
+  --bad:#E0817A;
+  --cover:#171A28; --cover-ink:#F1ECDF; --cover-ink-2:#9EA2BC;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:Karla,"Helvetica Neue",Arial,sans-serif; font-size:16px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 0 48px}
+.cover{
+  background:var(--cover); color:var(--cover-ink);
+  padding:calc(26px + env(safe-area-inset-top)) 22px 22px; position:relative;
+}
+.cover::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold-bright) 22%,var(--gold-bright) 78%,transparent);
+  opacity:.85;
+}
+.eyebrow{margin:0 0 6px;font-size:11.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--cover-ink-2)}
+.cover h1{
+  margin:0; font-family:Fraunces,Georgia,serif; font-variation-settings:"SOFT" 60,"opsz" 40;
+  font-weight:600; font-size:30px; letter-spacing:-.015em;
+}
+.panel{
+  background:var(--surface); border:1px solid var(--rule); border-radius:14px;
+  box-shadow:var(--shadow); margin:20px 14px 0; padding:20px 18px;
+}
+.field{display:flex;flex-direction:column;gap:2px}
+.field label{font-size:11.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
+.field input{
+  font:inherit; font-size:18px; color:var(--ink); background:transparent;
+  border:0; border-bottom:2px solid var(--rule); border-radius:0;
+  padding:7px 2px 8px; width:100%; -webkit-appearance:none;
+}
+.field input:focus{outline:0;border-bottom-color:var(--gold-bright)}
+.go{
+  width:100%; margin-top:16px; padding:14px 18px; border:0; border-radius:12px;
+  background:var(--indigo); color:var(--on-indigo);
+  font:inherit; font-size:16.5px; font-weight:700; cursor:pointer;
+}
+.go:hover{background:var(--indigo-press)}
+.go:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px}
+.go[disabled]{opacity:.6;cursor:default}
+.msg{margin:12px 0 0;font-size:14px;color:var(--bad);font-weight:600}
+.msg:empty{display:none}
+
+.bar{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  margin:22px 16px 0; flex-wrap:wrap;
+}
+.count{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px}
+.count b{font-variant-numeric:tabular-nums}
+.refresh{
+  background:none;border:0;font:inherit;font-weight:700;font-size:14.5px;color:var(--gold);
+  cursor:pointer;text-decoration:underline;text-underline-offset:4px;padding:6px 2px;
+}
+.refresh:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px;border-radius:6px}
+
+.tally{display:flex;flex-wrap:wrap;gap:8px;margin:12px 16px 0}
+.chip{
+  display:flex;align-items:baseline;gap:7px;padding:7px 12px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);font-size:13.5px;color:var(--ink-2);
+}
+.chip b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.list{display:flex;flex-direction:column;gap:10px;margin:14px 14px 0}
+.row{
+  background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:14px 16px;display:flex;flex-direction:column;gap:8px;
+}
+.row-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.who{font-weight:700;font-size:17.5px;letter-spacing:-.005em}
+.when{font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.meta{display:flex;flex-direction:column;gap:5px;font-size:14.5px;color:var(--ink-2)}
+.meta a{color:var(--indigo);text-decoration:none}
+.meta a:hover{text-decoration:underline}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;border:1px solid var(--rule-strong);color:var(--ink-2);
+}
+.tag--wed{border-color:var(--gold-bright);color:var(--gold)}
+.by{font-size:12.5px;color:var(--ink-3)}
+.by b{color:var(--ink-2);font-weight:700}
+.note{font-size:14px;color:var(--ink-2);background:var(--surface-2);
+  border-radius:9px;padding:8px 11px}
+.empty{margin:22px 16px 0;padding:22px 18px;text-align:center;color:var(--ink-3);
+  border:1px dashed var(--rule-strong);border-radius:12px}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="cover">
+    <p class="eyebrow">Discovery Bible Study</p>
+    <h1>Signups</h1>
+  </header>
+
+  <section class="panel" id="gate">
+    <div class="field">
+      <label for="code">Passcode</label>
+      <input id="code" type="password" autocomplete="current-password" enterkeyhint="go" placeholder="Enter the passcode">
+    </div>
+    <p class="msg" id="gate-msg"></p>
+    <button class="go" id="open" type="button">Show signups</button>
+  </section>
+
+  <div id="view" class="hidden">
+    <div class="bar">
+      <span class="count"><b id="total">0</b> <span id="total-word">signups</span></span>
+      <button class="refresh" id="refresh" type="button">Refresh</button>
+    </div>
+    <div class="tally" id="tally"></div>
+    <div class="list" id="list"></div>
+    <div class="empty hidden" id="empty">No signups yet.</div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://dmiysgmhwpkrunmswtrn.supabase.co";
+const SUPABASE_KEY = "sb_publishable_9NfxdWLrFdExD-_6HwPs8A_uUtlTH3C";
+const RPC_URL = SUPABASE_URL + "/rest/v1/rpc/dbs_roster";
+
+const LABEL = {
+  'Wed 1:00-1:45':    'Wed 1:00',
+  'Tues 11:00-11:45': 'Tue 11:00',
+  'Fri 1:30-2:15':    'Fri 1:30'
+};
+const $ = (id) => document.getElementById(id);
+const esc = (t) => String(t == null ? '' : t).replace(/[<>&"]/g, (c) =>
+  ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
+
+/* The passcode is remembered on this device only, so the page opens straight
+   to the list next time. */
+const CODE_KEY = 'dbs.roster.code';
+function savedCode() { try { return localStorage.getItem(CODE_KEY) || ''; } catch (e) { return ''; } }
+
+async function fetchRoster(code) {
+  const res = await fetch(RPC_URL, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ passcode: code })
+  });
+  if (!res.ok) throw new Error('The server returned ' + res.status + '.');
+  return res.json();
+}
+
+function when(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' +
+         d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
+
+function render(rows) {
+  $('total').textContent = rows.length;
+  $('total-word').textContent = rows.length === 1 ? 'signup' : 'signups';
+
+  const bySlot = {};
+  const byWho = {};
+  rows.forEach(function (r) {
+    (r.times || []).forEach(function (t) { bySlot[t] = (bySlot[t] || 0) + 1; });
+    if (r.found_by) byWho[r.found_by] = (byWho[r.found_by] || 0) + 1;
+  });
+
+  const tally = [];
+  ['Wed 1:00-1:45', 'Tues 11:00-11:45', 'Fri 1:30-2:15'].forEach(function (t) {
+    if (bySlot[t]) tally.push('<span class="chip">' + esc(LABEL[t]) + ' <b>' + bySlot[t] + '</b></span>');
+  });
+  Object.keys(byWho).sort().forEach(function (w) {
+    tally.push('<span class="chip">invited by ' + esc(w) + ' <b>' + byWho[w] + '</b></span>');
+  });
+  $('tally').innerHTML = tally.join('');
+
+  $('empty').classList.toggle('hidden', rows.length > 0);
+  $('list').innerHTML = rows.map(function (r) {
+    const tags = (r.times || []).map(function (t) {
+      const cls = t.indexOf('Wed') === 0 ? 'tag tag--wed' : 'tag';
+      return '<span class="' + cls + '">' + esc(LABEL[t] || t) + '</span>';
+    }).join('');
+    const digits = String(r.phone || '').replace(/\D/g, '');
+    let meta = '';
+    if (r.phone) meta += '<span><a href="tel:' + esc(digits) + '">' + esc(r.phone) + '</a></span>';
+    if (r.email) meta += '<span><a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a></span>';
+    return '<article class="row">' +
+      '<div class="row-top"><span class="who">' + esc(r.name) + '</span>' +
+      '<span class="when">' + esc(when(r.submitted_at)) + '</span></div>' +
+      (tags ? '<div class="tags">' + tags + '</div>' : '') +
+      (meta ? '<div class="meta">' + meta + '</div>' : '') +
+      (r.other_time ? '<div class="note">Asked about: ' + esc(r.other_time) + '</div>' : '') +
+      (r.found_by ? '<div class="by">Invited by <b>' + esc(r.found_by) + '</b></div>' : '') +
+      '</article>';
+  }).join('');
+}
+
+async function open(code, fromGate) {
+  const btn = $('open');
+  if (fromGate) { btn.disabled = true; btn.textContent = 'Checking…'; }
+  $('gate-msg').textContent = '';
+  try {
+    const rows = await fetchRoster(code);
+    if (fromGate && !rows.length) {
+      // The function returns nothing for a wrong passcode, and nothing when
+      // there are genuinely no signups. Only the first is worth blocking on.
+      const probe = await fetchRoster(code);
+      if (!probe.length) {
+        btn.disabled = false; btn.textContent = 'Show signups';
+        $('gate-msg').textContent = 'That passcode did not work — or there are no signups yet. Check the code and try again.';
+        return;
+      }
+    }
+    try { localStorage.setItem(CODE_KEY, code); } catch (e) {}
+    $('gate').classList.add('hidden');
+    $('view').classList.remove('hidden');
+    render(rows);
+  } catch (e) {
+    if (fromGate) { btn.disabled = false; btn.textContent = 'Show signups'; }
+    $('gate-msg').textContent = 'Could not load the signups. ' + e.message;
+  }
+}
+
+$('open').addEventListener('click', function () {
+  const v = $('code').value.trim();
+  if (!v) { $('gate-msg').textContent = 'Enter the passcode first.'; return; }
+  open(v, true);
+});
+$('code').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') $('open').click();
+});
+$('refresh').addEventListener('click', async function () {
+  const btn = $('refresh');
+  btn.textContent = 'Refreshing…';
+  try { render(await fetchRoster(savedCode())); } catch (e) {}
+  btn.textContent = 'Refresh';
+});
+
+if (savedCode()) open(savedCode(), false);
+</script>
+</body>
+</html>
