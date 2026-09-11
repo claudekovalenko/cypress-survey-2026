@@ -64,7 +64,7 @@ body{
 /* ---------- cover ---------- */
 .cover{
   background:var(--cover); color:var(--cover-ink);
-  padding:calc(34px + env(safe-area-inset-top)) 26px 30px;
+  padding:calc(64px + env(safe-area-inset-top)) 26px 30px;
   text-align:center; position:relative; overflow:hidden;
 }
 .cover::after{
@@ -86,12 +86,13 @@ body{
    never competes with the form itself. */
 .signin{
   position:absolute; top:calc(12px + env(safe-area-inset-top)); right:14px; z-index:2;
-  padding:7px 13px; border-radius:999px;
-  border:1px solid rgba(169,174,201,.38); color:var(--cover-ink-2);
-  font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:9px 16px; border-radius:999px;
+  border:1.5px solid var(--gold-bright); color:var(--gold-bright);
+  background:rgba(226,166,74,.12);
+  font-size:13px; font-weight:700; letter-spacing:.08em;
   text-decoration:none; transition:color .15s,border-color .15s,background .15s;
 }
-.signin:hover{color:var(--cover-ink);border-color:var(--gold-bright);background:rgba(226,166,74,.10)}
+.signin:hover{color:var(--cover);background:var(--gold-bright)}
 .signin:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px}
 .cover h1{
   position:relative; margin:0; font-family:Fraunces,Georgia,serif;
