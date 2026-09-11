@@ -82,6 +82,17 @@ body{
   position:relative; margin:0 0 10px; font-size:12px; font-weight:700;
   letter-spacing:.20em; text-transform:uppercase; color:var(--cover-ink-2);
 }
+/* Way in to the signup list. Quiet enough that it reads as staff-only and
+   never competes with the form itself. */
+.signin{
+  position:absolute; top:calc(12px + env(safe-area-inset-top)); right:14px; z-index:2;
+  padding:7px 13px; border-radius:999px;
+  border:1px solid rgba(169,174,201,.38); color:var(--cover-ink-2);
+  font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  text-decoration:none; transition:color .15s,border-color .15s,background .15s;
+}
+.signin:hover{color:var(--cover-ink);border-color:var(--gold-bright);background:rgba(226,166,74,.10)}
+.signin:focus-visible{outline:2.5px solid var(--gold-bright);outline-offset:2px}
 .cover h1{
   position:relative; margin:0; font-family:Fraunces,Georgia,serif;
   font-variation-settings:"SOFT" 60,"WONK" 0,"opsz" 80;
@@ -262,6 +273,7 @@ body{
 <div class="wrap">
   <header class="cover">
     <div class="glow"></div>
+    <a class="signin" href="roster.html">Sign in</a>
     <p class="eyebrow">Come join us for</p>
     <h1>Discovery <em>Bible</em> Study</h1>
     <p>Grow and learn together about following Jesus.</p>
