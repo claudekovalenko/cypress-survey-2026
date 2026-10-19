@@ -182,8 +182,11 @@ const RPC_URL = SUPABASE_URL + "/rest/v1/rpc/dbs_roster";
 const LABEL = {
   'Wed 1:00-1:45':    'Wed 1:00',
   'Tues 11:00-11:45': 'Tue 11:00',
-  'Fri 1:30-2:15':    'Fri 1:30'
+  'Fri 1:15-2:00':    'Fri 1:15'
 };
+/* Friday moved from 1:30 to 1:15; signups made before the change still
+   carry the old value, so count them under the new slot. */
+const OLD_SLOT = { 'Fri 1:30-2:15': 'Fri 1:15-2:00' };
 const $ = (id) => document.getElementById(id);
 const esc = (t) => String(t == null ? '' : t).replace(/[<>&"]/g, (c) =>
   ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
@@ -215,6 +218,9 @@ function when(iso) {
 }
 
 function render(rows) {
+  rows.forEach(function (r) {
+    r.times = (r.times || []).map(function (t) { return OLD_SLOT[t] || t; });
+  });
   $('total').textContent = rows.length;
   $('total-word').textContent = rows.length === 1 ? 'signup' : 'signups';
 
@@ -226,7 +232,7 @@ function render(rows) {
   });
 
   const tally = [];
-  ['Wed 1:00-1:45', 'Tues 11:00-11:45', 'Fri 1:30-2:15'].forEach(function (t) {
+  ['Wed 1:00-1:45', 'Tues 11:00-11:45', 'Fri 1:15-2:00'].forEach(function (t) {
     if (bySlot[t]) tally.push('<span class="chip">' + esc(LABEL[t]) + ' <b>' + bySlot[t] + '</b></span>');
   });
   Object.keys(byWho).sort().forEach(function (w) {

@@ -300,9 +300,9 @@ body{
         <p class="also">Also meeting</p>
 
         <label class="slot slot--alt">
-          <input type="checkbox" value="Fri 1:30-2:15">
+          <input type="checkbox" value="Fri 1:15-2:00">
           <span class="box"><svg viewBox="0 0 24 24"><polyline points="4,12.5 9.5,18 20,6.5"></polyline></svg></span>
-          <span><span class="slot-day">Friday</span><span class="slot-time">1:30 – 2:15 pm</span></span>
+          <span><span class="slot-day">Friday</span><span class="slot-time">1:15 – 2:00 pm</span></span>
         </label>
       </fieldset>
       <p class="msg" id="slots-msg"></p>
@@ -539,7 +539,7 @@ go.addEventListener('click', async function () {
 
 function showDone(name, times, other, queued) {
   const first = name.split(' ')[0];
-  const label = { 'Tues 11:00-11:45': 'Tuesday, 11:00 – 11:45 am', 'Wed 1:00-1:45': 'Wednesday, 1:00 – 1:45 pm', 'Fri 1:30-2:15': 'Friday, 1:30 – 2:15 pm' };
+  const label = { 'Tues 11:00-11:45': 'Tuesday, 11:00 – 11:45 am', 'Wed 1:00-1:45': 'Wednesday, 1:00 – 1:45 pm', 'Fri 1:15-2:00': 'Friday, 1:15 – 2:00 pm' };
   $('done-title').textContent = queued ? 'Saved on this phone' : 'You’re on the list, ' + first;
   $('done-note').textContent = queued
     ? 'No signal right now, so we held onto it. It sends automatically once you’re back online — just keep this page.'
